@@ -35,6 +35,16 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    // add
+    compile "org.postgresql:postgresql:42.1.4"
+    testCompile 'com.ninja-squad:DbSetup-kotlin:2.1.0'
+    testCompile('org.junit.jupiter:junit-jupiter-api:5.2.0')
+    testRuntime('org.junit.jupiter:junit-jupiter-engine:5.2.0')
+}
+
+test {
+    useJUnitPlatform()
 }
 
 compileKotlin {
