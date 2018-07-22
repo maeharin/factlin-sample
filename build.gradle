@@ -3,9 +3,16 @@ buildscript {
 
     repositories {
         mavenCentral()
+        // add
+        maven {
+            url "https://dl.bintray.com/maeharin/factlin"
+        }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        // add
+        classpath 'com.maeharin:factlin:0.0.1'
+        classpath "org.postgresql:postgresql:42.1.4"
     }
 }
 
@@ -13,6 +20,14 @@ group 'com.maeharin'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'kotlin'
+// add
+apply plugin: 'factlin'
+factlinGen {
+    dbUrl = "jdbc:postgresql://192.168.99.100/dvdrental" // docker ip
+    dbUser = "postgres"
+    dbPassword = ""
+    dbDialect = "postgres"
+}
 
 repositories {
     mavenCentral()
