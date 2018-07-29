@@ -12,9 +12,9 @@ data class CustomerFixture (
     val last_name: String = "", 
     val email: String? = null, 
     val address_id: Short = 0, 
-    val activebool: Boolean = true, 
+    val activebool: Boolean = false, 
     val create_date: LocalDate = LocalDate.now(), 
-    val last_update: LocalDateTime? = LocalDateTime.now(), 
+    val last_update: LocalDateTime? = null, 
     val active: Int? = null 
 )
 

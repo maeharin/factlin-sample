@@ -11,7 +11,7 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // add
-        classpath 'com.maeharin:factlin:0.0.1'
+        classpath 'com.maeharin:factlin:0.0.2'
         classpath "org.postgresql:postgresql:42.1.4"
     }
 }
