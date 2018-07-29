@@ -27,6 +27,18 @@ factlinGen {
     dbUser = "postgres"
     dbPassword = ""
     dbDialect = "postgres"
+    //fixtureOutputDir = "src/test/kotlin/com/maeharin/factlin/fixtures"
+    //fixturePackageName = "com.maeharin.factlin.fixtures"
+    //fixtureTemplatePath = ""
+    //includeTables = ["users", "film", "language"]
+    //excludeTables = ["category", "address"]
+    cleanOutputDir = true
+    //customDefaultValues = [
+    //        ["", "", ""]
+    //]
+    //customTypeMapper = [
+    //        "": ""
+    //]
 }
 
 repositories {
