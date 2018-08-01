@@ -13,7 +13,7 @@ docker-compose up
 generate db test fixture classes by factlin
 
 ```
-./gradlew factlinGen
+./gradlew factlin
 ```
 
 run db tests

@@ -11,7 +11,7 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // add
-        classpath 'com.maeharin:factlin:0.0.2'
+        classpath 'com.maeharin:factlin:0.0.3'
         classpath "org.postgresql:postgresql:42.1.4"
     }
 }
@@ -22,7 +22,7 @@ version '1.0-SNAPSHOT'
 apply plugin: 'kotlin'
 // add
 apply plugin: 'factlin'
-factlinGen {
+factlin {
     dbUrl = "jdbc:postgresql://192.168.99.100/dvdrental" // docker ip
     dbUser = "postgres"
     dbPassword = ""
