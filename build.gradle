@@ -1,26 +1,34 @@
 buildscript {
-    ext.kotlin_version = '1.2.31'
+    ext.kotlin_version = '1.2.50'
+    ext.ktor_version = '0.9.3'
+    ext.postgresql_version = '42.1.4'
 
     repositories {
         mavenCentral()
-        // add
-        maven {
-            url "https://dl.bintray.com/maeharin/factlin"
-        }
+        maven { url "https://dl.bintray.com/maeharin/factlin" }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        // add
         classpath 'com.maeharin:factlin:0.0.3'
         classpath "org.postgresql:postgresql:42.1.4"
+        classpath "org.postgresql:postgresql:$postgresql_version"
     }
 }
 
 group 'com.maeharin'
 version '1.0-SNAPSHOT'
 
+apply plugin:'application'
+mainClassName = "com.maeharin.factlin_sample.MainKt"
+
+//apply plugin: 'java'
 apply plugin: 'kotlin'
-// add
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
+
 apply plugin: 'factlin'
 factlin {
     dbUrl = "jdbc:postgresql://192.168.99.100/dvdrental" // docker ip
@@ -43,13 +51,19 @@ factlin {
 
 repositories {
     mavenCentral()
+    jcenter()
+    maven { url "https://dl.bintray.com/kotlin/ktor" }
+    maven { url "https://dl.bintray.com/kotlin/exposed" }
 }
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compile "io.ktor:ktor-server-core:$ktor_version"
+    compile "io.ktor:ktor-server-netty:$ktor_version"
+    compile "org.jetbrains.exposed:exposed:0.10.4"
+    compile "com.zaxxer:HikariCP:3.2.0"
+    compile "org.postgresql:postgresql:$postgresql_version"
 
-    // add
-    compile "org.postgresql:postgresql:42.1.4"
     testCompile 'com.ninja-squad:DbSetup-kotlin:2.1.0'
     testCompile('org.junit.jupiter:junit-jupiter-api:5.2.0')
     testRuntime('org.junit.jupiter:junit-jupiter-engine:5.2.0')
