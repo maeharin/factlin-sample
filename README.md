@@ -2,7 +2,7 @@
 
 this is sample project of [factlin](https://github.com/maeharin/factlin)
 
-## run
+## run test
 
 start database. database are from [this](http://www.postgresqltutorial.com/postgresql-sample-database/)
 
@@ -23,3 +23,17 @@ run db tests
 ```
 
 done!
+
+## run app
+
+```
+$ ./gradlew run
+```
+
+localhost:8080
+
+```
+$ curl -XPOST http://localhost:8080/user -d "name=maeharin&job=ENGINEER"
+```
+
+localhost:8080/users
