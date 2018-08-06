@@ -31,7 +31,8 @@ kotlin {
 
 apply plugin: 'factlin'
 factlin {
-    dbUrl = "jdbc:postgresql://192.168.99.100/dvdrental" // docker ip
+    def dbHost = System.getenv("DB_HOST")
+    dbUrl = "jdbc:postgresql://$dbHost/dvdrental" // docker ip
     dbUser = "postgres"
     dbPassword = ""
     dbDialect = "postgres"

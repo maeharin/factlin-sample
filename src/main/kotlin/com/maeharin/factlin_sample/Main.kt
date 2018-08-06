@@ -27,7 +27,8 @@ import org.jetbrains.exposed.sql.Database
 
 fun Application.main() {
     val hikariConfig = HikariConfig().also {
-        it.jdbcUrl = "jdbc:postgresql://192.168.99.100/dvdrental"
+        val host = System.getenv("DB_HOST")
+        it.jdbcUrl = "jdbc:postgresql://$host/dvdrental"
         it.username = "postgres"
         it.password = ""
         it.driverClassName = "org.postgresql.Driver"
