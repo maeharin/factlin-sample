@@ -19,7 +19,7 @@ group 'com.maeharin'
 version '1.0-SNAPSHOT'
 
 apply plugin:'application'
-mainClassName = "com.maeharin.factlin_sample.MainKt"
+mainClassName = "io.ktor.server.netty.DevelopmentEngine"
 
 //apply plugin: 'java'
 apply plugin: 'kotlin'
@@ -60,9 +60,11 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile "io.ktor:ktor-server-core:$ktor_version"
     compile "io.ktor:ktor-server-netty:$ktor_version"
+    compile "io.ktor:ktor-html-builder:$ktor_version"
     compile "org.jetbrains.exposed:exposed:0.10.4"
     compile "com.zaxxer:HikariCP:3.2.0"
     compile "org.postgresql:postgresql:$postgresql_version"
+    compile "ch.qos.logback:logback-classic:1.2.3"
 
     testCompile 'com.ninja-squad:DbSetup-kotlin:2.1.0'
     testCompile('org.junit.jupiter:junit-jupiter-api:5.2.0')

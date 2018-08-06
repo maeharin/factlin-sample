@@ -31,3 +31,9 @@ $ ./gradlew run
 ```
 
 localhost:8080
+
+```
+$ curl -XPOST http://localhost:8080/user -d "name=maeharin&job=ENGINEER"
+```
+
+localhost:8080/users
