@@ -18,15 +18,23 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" dvdrental <<-EOSQL
       name VARCHAR(256) NOT NULL,
       job VARCHAR(256) NOT NULL DEFAULT 'engineer',
       status VARCHAR(256) NOT NULL DEFAULT 'ACTIVE',
-      age INTEGER NOT NULL DEFAULT 30,
-      nick_name VARCHAR(256)
+      age INTEGER NOT NULL,
+      score NUMERIC NOT NULL,
+      is_admin BOOLEAN NOT NULL,
+      birth_day DATE NOT NULL,
+      nick_name VARCHAR(256),
+      created_timestamp TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+      updated_timestamp TIMESTAMP WITHOUT TIME ZONE
     );
 
     COMMENT ON TABLE users IS 'user table';
     COMMENT ON COLUMN users.id IS 'primary key';
-    COMMENT ON COLUMN users.name IS 'name';
+    COMMENT ON COLUMN users.name IS 'user name';
     COMMENT ON COLUMN users.job IS 'job name';
     COMMENT ON COLUMN users.status IS 'activate status';
-    COMMENT ON COLUMN users.age IS 'age';
+    COMMENT ON COLUMN users.age IS 'user age';
+    COMMENT ON COLUMN users.score IS 'game score';
+    COMMENT ON COLUMN users.is_admin IS 'user is admin user or not';
+    COMMENT ON COLUMN users.birth_day IS 'user birth day';
     COMMENT ON COLUMN users.nick_name IS 'nick name';
 EOSQL
