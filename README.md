@@ -2,6 +2,11 @@
 
 this is sample project of [factlin](https://github.com/maeharin/factlin)
 
+## test frameworks
+
+- master branch: junit5
+- kotlintest branch: kotlintest
+
 ## run test
 
 start database. database are from [this](http://www.postgresqltutorial.com/postgresql-sample-database/)
