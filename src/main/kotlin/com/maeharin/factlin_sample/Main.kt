@@ -1,9 +1,10 @@
 package com.maeharin.factlin_sample
 
-import com.maeharin.factlin_sample.application.usecase.CreateUserInput
-import com.maeharin.factlin_sample.application.usecase.createUser
-import com.maeharin.factlin_sample.application.usecase.showUsers
 import com.maeharin.factlin_sample.domain.UserJobType
+import com.maeharin.factlin_sample.usecase.*
+import com.maeharin.factlin_sample.views.userDetail
+import com.maeharin.factlin_sample.views.userForm
+import com.maeharin.factlin_sample.views.userIndex
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.application.Application
@@ -21,8 +22,8 @@ import io.ktor.routing.post
 import io.ktor.routing.routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import kotlinx.html.*
 import org.jetbrains.exposed.sql.Database
+import java.time.LocalDate
 
 
 fun Application.main() {
@@ -45,54 +46,51 @@ fun Application.main() {
                 call.respondText("Hello World!", ContentType.Text.Plain)
             }
             get("/users/new") {
-                call.respondHtml {
-                    head {
-                        title { +"factlin sample web app"}
-                    }
-                    body {
-                        form("/users", encType = FormEncType.applicationXWwwFormUrlEncoded, method = FormMethod.post) {
-                            acceptCharset = "utf-8"
-                            p {
-                                label { +"name: "}
-                                textInput { name = "name"}
-                            }
-                            p {
-                                label { +"job: "}
-                                textInput { name = "job"}
-                            }
-                            p {
-                                submitInput { value = "送信" }
-                            }
-                        }
-                    }
-                }
+                call.respondHtml { userForm(null) }
             }
             post("/users") {
                 val params = call.receiveParameters()
-                val input = CreateUserInput(
+                val input = CreateOrUpdateUserInput(
                         name = params["name"]!!,
-                        job = UserJobType.valueOf(params["job"]!!)
+                        job = UserJobType.valueOf(params["job"]!!),
+                        age = params["age"]!!.toInt(),
+                        birthDay = LocalDate.parse(params["birthDay"]),
+                        nickName = params["nickName"]
                 )
                 val userId = createUser(input)
                 call.respondRedirect("/users")
             }
             get ("/users") {
                 val users = showUsers()
-                call.respondHtml {
-                    head {
-                        title { +"factlin sample web app"}
-                    }
-                    body {
-                        a("/users/new") { +"新規作成" }
-                        ul {
-                            users.forEach { user ->
-                                li {
-                                    +"${user.id} ${user.name} ${user.job}"
-                                }
-                            }
-                        }
-                    }
-                }
+                call.respondHtml { userIndex(users) }
+            }
+            get ("/users/{id}") {
+                val id = call.parameters["id"]?.toInt() ?: throw RuntimeException() // todo not found
+                val user = showUserById(id)
+                call.respondHtml { userDetail(user) }
+            }
+            get ("/users/edit/{id}") {
+                val id = call.parameters["id"]?.toInt() ?: throw RuntimeException() // todo not found
+                val user = showUserById(id)
+                call.respondHtml { userForm(user) }
+            }
+            post("/users/update/{id}") {
+                val id = call.parameters["id"]?.toInt() ?: throw RuntimeException() // todo not found
+                val params = call.receiveParameters()
+                val input = CreateOrUpdateUserInput(
+                        name = params["name"]!!,
+                        job = UserJobType.valueOf(params["job"]!!),
+                        age = params["age"]!!.toInt(),
+                        birthDay = LocalDate.parse(params["birthDay"]),
+                        nickName = params["nickName"]
+                )
+                updateUser(id, input)
+                call.respondRedirect("/users")
+            }
+            post("/users/delete/{id}") {
+                val id = call.parameters["id"]?.toInt() ?: throw RuntimeException() // todo not found
+                deleteUser(id)
+                call.respondRedirect("/users")
             }
         }
     }

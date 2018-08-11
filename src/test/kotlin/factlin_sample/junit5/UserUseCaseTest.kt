@@ -1,10 +1,10 @@
-package factlin_sample
+package factlin_sample.junit5
 
 import com.maeharin.factlin.fixtures.UsersFixture
 import com.maeharin.factlin.fixtures.insertUsersFixture
 import com.maeharin.factlin.fixtures_ext.active
-import com.maeharin.factlin.fixtures_ext.inActive
-import com.maeharin.factlin_sample.application.usecase.showUsers
+import com.maeharin.factlin.fixtures_ext.stopped
+import com.maeharin.factlin_sample.usecase.showUsers
 import com.maeharin.factlin_sample.domain.UserJobType
 import com.ninja_squad.dbsetup.destination.DriverManagerDestination
 import com.ninja_squad.dbsetup_kotlin.dbSetup
@@ -31,7 +31,7 @@ class UserUseCaseTest {
         dbSetup(dest) {
             deleteAllFrom(listOf("users"))
             insertUsersFixture(UsersFixture().active().copy(id = 1, name = "テスト1"))
-            insertUsersFixture(UsersFixture().inActive().copy(id = 2, name = "テスト2"))
+            insertUsersFixture(UsersFixture().stopped().copy(id = 2, name = "テスト2"))
         }.launch()
 
         val users = showUsers()
