@@ -12,9 +12,7 @@ import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.testing.handleRequest
 import io.ktor.server.testing.withTestApplication
-import org.hamcrest.CoreMatchers.`is`
 import org.jetbrains.exposed.sql.Database
-import org.junit.Assert.assertThat
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -55,7 +53,7 @@ class UserControllerTest {
 
         withTestApplication(Application::module) {
             with(handleRequest(HttpMethod.Get, "/users")) {
-                assertThat(response.status(), `is`(HttpStatusCode.OK))
+                assertEquals(HttpStatusCode.OK, response.status())
             }
         }
     }
