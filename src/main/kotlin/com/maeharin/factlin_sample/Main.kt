@@ -26,7 +26,7 @@ import org.jetbrains.exposed.sql.Database
 import java.time.LocalDate
 
 
-fun Application.main() {
+fun Application.module() {
     val hikariConfig = HikariConfig().also {
         val host = System.getenv("DB_HOST")
         it.jdbcUrl = "jdbc:postgresql://$host/dvdrental"
@@ -40,60 +40,65 @@ fun Application.main() {
     install(DefaultHeaders)
     install(CallLogging)
 
-    val server = embeddedServer(Netty, port = 8080) {
-        routing {
-            get("/") {
-                call.respondText("Hello World!", ContentType.Text.Plain)
-            }
-            get("/users/new") {
-                call.respondHtml { userForm(null) }
-            }
-            post("/users") {
-                val params = call.receiveParameters()
-                val input = CreateOrUpdateUserInput(
-                        name = params["name"]!!,
-                        job = UserJobType.valueOf(params["job"]!!),
-                        age = params["age"]!!.toInt(),
-                        birthDay = LocalDate.parse(params["birthDay"]),
-                        nickName = params["nickName"]
-                )
-                val userId = createUser(input)
-                call.respondRedirect("/users")
-            }
-            get ("/users") {
-                val users = showUsers()
-                call.respondHtml { userIndex(users) }
-            }
-            get ("/users/{id}") {
-                val id = call.parameters["id"]?.toInt() ?: throw RuntimeException() // todo not found
-                val user = showUserById(id)
-                call.respondHtml { userDetail(user) }
-            }
-            get ("/users/edit/{id}") {
-                val id = call.parameters["id"]?.toInt() ?: throw RuntimeException() // todo not found
-                val user = showUserById(id)
-                call.respondHtml { userForm(user) }
-            }
-            post("/users/update/{id}") {
-                val id = call.parameters["id"]?.toInt() ?: throw RuntimeException() // todo not found
-                val params = call.receiveParameters()
-                val input = CreateOrUpdateUserInput(
-                        name = params["name"]!!,
-                        job = UserJobType.valueOf(params["job"]!!),
-                        age = params["age"]!!.toInt(),
-                        birthDay = LocalDate.parse(params["birthDay"]),
-                        nickName = params["nickName"]
-                )
-                updateUser(id, input)
-                call.respondRedirect("/users")
-            }
-            post("/users/delete/{id}") {
-                val id = call.parameters["id"]?.toInt() ?: throw RuntimeException() // todo not found
-                deleteUser(id)
-                call.respondRedirect("/users")
-            }
+    routing {
+        get("/") {
+            call.respondText("Hello World!", ContentType.Text.Plain)
         }
+        get("/users/new") {
+            call.respondHtml { userForm(null) }
+        }
+        post("/users") {
+            val params = call.receiveParameters()
+            val input = CreateOrUpdateUserInput(
+                    name = params["name"]!!,
+                    job = UserJobType.valueOf(params["job"]!!),
+                    age = params["age"]!!.toInt(),
+                    birthDay = LocalDate.parse(params["birthDay"]),
+                    nickName = params["nickName"]
+            )
+            val userId = createUser(input)
+            call.respondRedirect("/users")
+        }
+        get ("/users") {
+            val users = showUsers()
+            call.respondHtml { userIndex(users) }
+        }
+        get ("/users/{id}") {
+            val id = call.parameters["id"]?.toInt() ?: throw RuntimeException() // todo not found
+            val user = showUserById(id)
+            call.respondHtml { userDetail(user) }
+        }
+        get ("/users/edit/{id}") {
+            val id = call.parameters["id"]?.toInt() ?: throw RuntimeException() // todo not found
+            val user = showUserById(id)
+            call.respondHtml { userForm(user) }
+        }
+        post("/users/update/{id}") {
+            val id = call.parameters["id"]?.toInt() ?: throw RuntimeException() // todo not found
+            val params = call.receiveParameters()
+            val input = CreateOrUpdateUserInput(
+                    name = params["name"]!!,
+                    job = UserJobType.valueOf(params["job"]!!),
+                    age = params["age"]!!.toInt(),
+                    birthDay = LocalDate.parse(params["birthDay"]),
+                    nickName = params["nickName"]
+            )
+            updateUser(id, input)
+            call.respondRedirect("/users")
+        }
+        post("/users/delete/{id}") {
+            val id = call.parameters["id"]?.toInt() ?: throw RuntimeException() // todo not found
+            deleteUser(id)
+            call.respondRedirect("/users")
+        }
+        //get("/api/users") {
+        //    val users = showUsers()
+        //}
     }
-    server.start(wait = true)
 }
 
+fun main(args: Array<String>) {
+    embeddedServer(Netty, 8080,
+            module = Application::module
+    ).start(wait = true)
+}

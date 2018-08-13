@@ -70,6 +70,8 @@ dependencies {
     // junit5
     testCompile('org.junit.jupiter:junit-jupiter-api:5.2.0')
     testRuntime('org.junit.jupiter:junit-jupiter-engine:5.2.0')
+    // ktor-server-test
+    testCompile "io.ktor:ktor-server-test-host:$ktor_version"
 }
 
 test {
