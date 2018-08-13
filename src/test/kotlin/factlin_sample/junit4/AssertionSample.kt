@@ -15,7 +15,7 @@ class AssertionSample {
     private var counter = 0
 
     @org.testng.annotations.Test
-    fun `junit4 assersions`() {
+    fun `assersions`() {
         println("----------")
         println(counter)
         println("----------")
@@ -38,7 +38,7 @@ class AssertionSample {
     }
 
     @org.testng.annotations.Test
-    fun `kotlin-test-junit assersions`() {
+    fun `kotlin-test assersions`() {
         println("----------")
         println(counter)
         println("----------")
