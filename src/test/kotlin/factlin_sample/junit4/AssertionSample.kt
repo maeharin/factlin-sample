@@ -11,8 +11,15 @@ class AssertionSample {
     private val item = Item(1, "foo")
     private val item2 = Item(1, "foo")
 
+    private var counter = 0
+
     @Test
-    fun `junit4 assersions`() {
+    fun `assersions`() {
+        println("----------")
+        println(counter)
+        println("----------")
+        counter++
+
         org.junit.Assert.assertEquals(0, 0)
         org.junit.Assert.assertNotEquals(1, 0)
         org.junit.Assert.assertEquals("メッセージ", 0, 0)
@@ -30,7 +37,12 @@ class AssertionSample {
     }
 
     @Test
-    fun `kotlin-test-junit assersions`() {
+    fun `kotlin-test assersions`() {
+        println("----------")
+        println(counter)
+        println("----------")
+        counter++
+
         kotlin.test.assertEquals(expected = 1, actual = 1, message = "メッセージ")
         kotlin.test.assertNotEquals(illegal = 0, actual = 1, message = "メッセージ")
         kotlin.test.assertNotNull(actual = 0)
