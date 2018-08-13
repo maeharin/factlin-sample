@@ -13,8 +13,8 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.server.testing.handleRequest
 import io.ktor.server.testing.withTestApplication
 import org.jetbrains.exposed.sql.Database
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.testng.Assert.assertEquals
+import org.testng.annotations.Test
 
 class UserControllerTest {
     val dbUrl = "jdbc:postgresql://${System.getenv("DB_HOST")}/dvdrental"

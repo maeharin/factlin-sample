@@ -70,11 +70,15 @@ dependencies {
     // ktor-server-test
     testCompile "io.ktor:ktor-server-test-host:$ktor_version"
 
-    // kotlin-test-junit
-    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    // testng
+    testCompile "org.testng:testng:6.14.3"
+
+    // kotlin-test-testng
+    testCompile "org.jetbrains.kotlin:kotlin-test-testng:$kotlin_version"
 }
 
 test {
+    useTestNG()
     testLogging {
         events "PASSED", "FAILED", "SKIPPED"
         showStandardStreams = true

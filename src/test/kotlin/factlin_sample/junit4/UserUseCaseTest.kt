@@ -12,8 +12,8 @@ import com.maeharin.factlin_sample.usecase.showUserById
 import com.ninja_squad.dbsetup.destination.DriverManagerDestination
 import com.ninja_squad.dbsetup_kotlin.dbSetup
 import org.jetbrains.exposed.sql.Database
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.testng.Assert.assertEquals
+import org.testng.annotations.Test
 import java.time.LocalDate
 
 class UserUseCaseTest {
