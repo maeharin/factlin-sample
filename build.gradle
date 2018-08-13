@@ -69,6 +69,9 @@ dependencies {
     testCompile 'com.ninja-squad:DbSetup-kotlin:2.1.0'
     // ktor-server-test
     testCompile "io.ktor:ktor-server-test-host:$ktor_version"
+
+    // kotlin-test-junit
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 }
 
 test {
