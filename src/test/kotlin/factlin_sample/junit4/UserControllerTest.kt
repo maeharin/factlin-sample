@@ -1,4 +1,4 @@
-package factlin_sample.junit5
+package factlin_sample.junit4
 
 import com.maeharin.factlin.fixtures.UsersFixture
 import com.maeharin.factlin.fixtures.insertUsersFixture
@@ -13,8 +13,8 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.server.testing.handleRequest
 import io.ktor.server.testing.withTestApplication
 import org.jetbrains.exposed.sql.Database
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
 class UserControllerTest {
     val dbUrl = "jdbc:postgresql://${System.getenv("DB_HOST")}/dvdrental"

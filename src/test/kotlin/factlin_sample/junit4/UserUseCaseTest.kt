@@ -1,4 +1,4 @@
-package factlin_sample.junit5
+package factlin_sample.junit4
 
 import com.maeharin.factlin.fixtures.UsersFixture
 import com.maeharin.factlin.fixtures.insertUsersFixture
@@ -12,9 +12,8 @@ import com.maeharin.factlin_sample.usecase.showUserById
 import com.ninja_squad.dbsetup.destination.DriverManagerDestination
 import com.ninja_squad.dbsetup_kotlin.dbSetup
 import org.jetbrains.exposed.sql.Database
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertAll
+import org.junit.Assert.assertEquals
+import org.junit.Test
 import java.time.LocalDate
 
 class UserUseCaseTest {
@@ -41,19 +40,15 @@ class UserUseCaseTest {
         val users = showUsers()
 
         users[0].also { user ->
-            assertAll("first user",
-                    { assertEquals(1, user.id)},
-                    { assertEquals("テスト1", user.name)},
-                    { assertEquals(UserJobType.ENGINEER, user.job)}
-            )
+            assertEquals(1, user.id)
+            assertEquals("テスト1", user.name)
+            assertEquals(UserJobType.ENGINEER, user.job)
         }
 
         users[1].also { user ->
-            assertAll("second user",
-                    { assertEquals(2, user.id)},
-                    { assertEquals("テスト2", user.name)},
-                    { assertEquals(UserJobType.ENGINEER, user.job)}
-            )
+            assertEquals(2, user.id)
+            assertEquals("テスト2", user.name)
+            assertEquals(UserJobType.ENGINEER, user.job)
         }
     }
 
@@ -66,11 +61,9 @@ class UserUseCaseTest {
 
         val user = showUserById(1)
 
-        assertAll("user 1",
-                { assertEquals(1, user.id) },
-                { assertEquals("テスト1", user.name) },
-                { assertEquals(UserJobType.ENGINEER, user.job) }
-        )
+        assertEquals(1, user.id)
+        assertEquals("テスト1", user.name)
+        assertEquals(UserJobType.ENGINEER, user.job)
     }
 
     @Test
@@ -85,13 +78,11 @@ class UserUseCaseTest {
         val id = createUser(input)
         val user = showUserById(id)
 
-        assertAll("created user",
-                { assertEquals(id, user.id) },
-                { assertEquals("前原 秀徳", user.name) },
-                { assertEquals(UserJobType.TEACHER, user.job) },
-                { assertEquals( 0, user.age) },
-                { assertEquals(LocalDate.parse("1982-10-07"), user.birthDay) },
-                { assertEquals("maeharin", user.nickName) }
-        )
+        assertEquals(id, user.id)
+        assertEquals("前原 秀徳", user.name)
+        assertEquals(UserJobType.TEACHER, user.job)
+        assertEquals( 0, user.age)
+        assertEquals(LocalDate.parse("1982-10-07"), user.birthDay)
+        assertEquals("maeharin", user.nickName)
     }
 }

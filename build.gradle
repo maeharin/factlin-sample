@@ -67,15 +67,11 @@ dependencies {
     compile "ch.qos.logback:logback-classic:1.2.3"
 
     testCompile 'com.ninja-squad:DbSetup-kotlin:2.1.0'
-    // junit5
-    testCompile('org.junit.jupiter:junit-jupiter-api:5.2.0')
-    testRuntime('org.junit.jupiter:junit-jupiter-engine:5.2.0')
     // ktor-server-test
     testCompile "io.ktor:ktor-server-test-host:$ktor_version"
 }
 
 test {
-    useJUnitPlatform()
     testLogging {
         events "PASSED", "FAILED", "SKIPPED"
         showStandardStreams = true
