@@ -1,4 +1,4 @@
-package factlin_sample.junit4
+package factlin_sample.testng
 
 import com.maeharin.factlin.fixtures.UsersFixture
 import com.maeharin.factlin.fixtures.insertUsersFixture

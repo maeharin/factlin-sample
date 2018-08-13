@@ -1,4 +1,4 @@
-package factlin_sample.junit4
+package factlin_sample.testng
 
 import java.time.LocalDateTime
 
@@ -10,7 +10,7 @@ class AssertionSample {
     private val item2 = Item(1, "foo")
 
     // インスタンスのデフォルトのライフサイクルの違い
-    // junit4: メソッド単位
+    // testng: メソッド単位
     // testng: クラス単位
     private var counter = 0
 
