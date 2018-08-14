@@ -1,5 +1,10 @@
 package factlin_sample.junit4
 
+import org.hamcrest.CoreMatchers.*
+import org.hamcrest.Matchers.greaterThan
+import org.hamcrest.Matchers.empty
+import org.hamcrest.Matchers.hasSize
+import org.hamcrest.CoreMatchers.`is` as Is
 import org.junit.Test
 import java.time.LocalDateTime
 
@@ -11,15 +16,8 @@ class AssertionSample {
     private val item = Item(1, "foo")
     private val item2 = Item(1, "foo")
 
-    private var counter = 0
-
     @Test
-    fun `assersions`() {
-        println("----------")
-        println(counter)
-        println("----------")
-        counter++
-
+    fun `junitのassersions`() {
         org.junit.Assert.assertEquals(0, 0)
         org.junit.Assert.assertNotEquals(1, 0)
         org.junit.Assert.assertEquals("メッセージ", 0, 0)
@@ -37,12 +35,30 @@ class AssertionSample {
     }
 
     @Test
-    fun `kotlin-test assersions`() {
-        println("----------")
-        println(counter)
-        println("----------")
-        counter++
+    fun `junitに組み込まれているhamcrest core matchers`() {
+        org.junit.Assert.assertThat(0, Is(0))
+        org.junit.Assert.assertThat(0, Is(not(1)))
+        org.junit.Assert.assertThat("foo", Is("foo"))
+        org.junit.Assert.assertThat(null, Is(nullValue()))
+        org.junit.Assert.assertThat(item, Is(item))
+        org.junit.Assert.assertThat(item, Is(sameInstance(item)))
+        org.junit.Assert.assertThat(item, Is(item2))
+        org.junit.Assert.assertThat(item, Is(not(sameInstance(item2))))
+        org.junit.Assert.assertThat("foo", Is(startsWith("f")))
+        org.junit.Assert.assertThat("foo", Is(containsString("oo")))
+        org.junit.Assert.assertThat(listOf(1,2,3), Is(hasItem(2)))
+        org.junit.Assert.assertThat(listOf(1,2,3), Is(hasItems(2,3)))
+    }
 
+    @Test
+    fun `hamcrest-libraryのmatchers`() {
+        org.junit.Assert.assertThat(5, Is(greaterThan(4)))
+        org.junit.Assert.assertThat(emptyList<String>(), Is(empty()))
+        org.junit.Assert.assertThat(listOf(1,2,3), hasSize(3))
+    }
+
+    @Test
+    fun `kotlin-testのassersions`() {
         kotlin.test.assertEquals(expected = 1, actual = 1, message = "メッセージ")
         kotlin.test.assertNotEquals(illegal = 0, actual = 1, message = "メッセージ")
         kotlin.test.assertNotNull(actual = 0)

@@ -72,6 +72,10 @@ dependencies {
 
     // kotlin-test-junit
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+
+    // hacrest-library
+    testCompile "org.hamcrest:hamcrest-library:1.3"
+
 }
 
 test {
