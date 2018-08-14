@@ -4,8 +4,8 @@ this is sample project of [factlin](https://github.com/maeharin/factlin)
 
 ## test frameworks
 
-- master branch: junit5
-- kotlintest branch: kotlintest
+- master branch: junit4
+- other branches: other testing libraries
 
 ## run test
 
