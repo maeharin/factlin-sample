@@ -68,6 +68,10 @@ class UserUseCaseTest {
 
     @Test
     fun `create user` () {
+        dbSetup(dest) {
+            deleteAllFrom(listOf("users"))
+        }.launch()
+
         val input = CreateOrUpdateUserInput(
                 name = "前原 秀徳",
                 job = UserJobType.TEACHER,
